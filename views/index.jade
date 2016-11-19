@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  h1 Hello Gazou !
+  p(class="lead") Tu vas bien aujourd'hui ? :)
+  
+  if error
+    div(class="alert alert-danger")
+      | Ton PDF n'était pas bon ou alors il y a un bug dans le paté :s
+
+  div(class='text-center panel panel-default')
+    h3 1. Envoie ton PDF
+    form(action="/upload" method="post" enctype="multipart/form-data")
+      div(class="form-group")
+        button(type="submit" id="submitBtn" style="display:none;") Hidden Button
+        a(href="javascript:;" onclick="$('#submitBtn').click();")
+          i(class="fa fa-cloud-upload fa-5x" aria-hidden="true")
+          h3 Envoyer ça 
+        input(class="center-block text-center" type="file" name="uploadFile" id="uploadFile" required)
+
+  
+  div(class='text-center panel panel-default')
+    h3 2. Télécharge la version triée (ça peut être long...)  
+    div
+      a(href='/download')
+        i(class="fa fa-cloud-download fa-5x" aria-hidden="true")
+        h3 Télecharge moi  
