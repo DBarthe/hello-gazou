@@ -51,7 +51,8 @@ function reorderPdf(inFile, outFile, pagesOrder, callback) {
 }
 
 function isThatText(value) {
-    return value.startsWith("L\'int%C3%A9ress%C3%A9");
+    return utf8.decode(unescape(value)).startsWith("L'int");
+    //startsWith("L\'int%C3%A9ress%C3%A9")
 }
 
 function isThatTextRun(textRun) {
@@ -149,12 +150,14 @@ function generatePdf(inFile, outFile, callback) {
             var pageOrder = buildPageOrder(pageIndex);
             reorderPdf(inFile, outFile, pageOrder, callback);
         } catch (e) {
+	    console.log(e);
             callback(true);
         }
     });
 
     fs.readFile(inFile, (err, buffer) => {
         if (err) {
+	    console.log(err);
             callback(true);
         } else {
             pdfParser.parseBuffer(buffer);
