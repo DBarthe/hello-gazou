@@ -152,7 +152,14 @@ function generatePdf(inFile, outFile, callback) {
             callback(true);
         }
     });
-    pdfParser.loadPDF(inFile);
+
+    fs.readFile(inFile, (err, buffer) => {
+        if (err) {
+            callback(true);
+        } else {
+            pdfParser.parseBuffer(buffer);
+        }
+    });
 }
 
 module.exports = router;
